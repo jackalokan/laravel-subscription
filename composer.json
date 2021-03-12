@@ -1,0 +1,67 @@
+{
+    "name": "abovesky/laravel-subscription",
+    "description": "A flexible plans and subscription management system for Laravel",
+    "type": "library",
+    "keywords": [
+        "plan",
+        "laravel",
+        "subscription"
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/abovesky/laravel-subscription",
+    "support": {
+        "email": "abovesky@qq.com",
+        "issues": "https://github.com/abovesky/laravel-subscription/issues",
+        "source": "https://github.com/abovesky/laravel-subscription",
+        "docs": "https://github.com/abovesky/laravel-subscription/blob/master/README.md"
+    },
+    "authors": [
+        {
+            "name": "Abovesky",
+            "homepage": "https://github.com/abovesky",
+            "email": "abovesky@qq.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4.0 || ^8.0.0",
+        "illuminate/console": "^8.0.0 || ^9.0.0",
+        "illuminate/database": "^8.0.0 || ^9.0.0",
+        "illuminate/support": "^8.0.0 || ^9.0.0",
+        "spatie/eloquent-sortable": "^3.7.0",
+        "spatie/laravel-sluggable": "^2.2.0",
+        "spatie/laravel-translatable": "^4.2.0",
+        "rinvex/tmp-watson-validating": "^6.0.0"
+    },
+    "require-dev": {
+        "codedungeon/phpunit-result-printer": "^0.30.0",
+        "illuminate/container": "^8.0.0 || ^9.0.0",
+        "phpunit/phpunit": "^9.5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Abovesky\\Subscription\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Abovesky\\Subscription\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "config": {
+        "sort-packages": true,
+        "preferred-install": "dist",
+        "optimize-autoloader": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Abovesky\\Subscription\\Providers\\SubscriptionsServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
