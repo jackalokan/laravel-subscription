@@ -8,7 +8,6 @@ use Spatie\Sluggable\SlugOptions;
 use Abovesky\Subscription\Traits\HasSlug;
 use Spatie\EloquentSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
-use Abovesky\Subscription\Traits\HasTranslations;
 use Abovesky\Subscription\Traits\ValidatingTrait;
 use Spatie\EloquentSortable\SortableTrait;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -55,7 +54,6 @@ class Plan extends Model implements Sortable
 {
     use HasSlug;
     use SortableTrait;
-    use HasTranslations;
     use ValidatingTrait;
 
     /**
@@ -100,16 +98,6 @@ class Plan extends Model implements Sortable
     ];
 
     /**
-     * The attributes that are translatable.
-     *
-     * @var array
-     */
-    public $translatable = [
-        'name',
-        'description',
-    ];
-
-    /**
      * The sortable settings.
      *
      * @var array
@@ -145,8 +133,8 @@ class Plan extends Model implements Sortable
         $this->setTable(config('abovesky.subscription.tables.plans'));
         $this->setRules([
             'slug' => 'required|alpha_dash|max:150|unique:'.config('abovesky.subscription.tables.plans').',slug',
-            'name' => 'required|string|max:150',
-            'description' => 'nullable|string|max:32768',
+            'name' => 'required|string|max:50',
+            'description' => 'nullable|string|max:255',
             'is_active' => 'sometimes|boolean',
             'price' => 'required|numeric',
             'trial_period' => 'sometimes|integer|max:100000',

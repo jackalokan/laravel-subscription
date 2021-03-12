@@ -58,7 +58,6 @@ $plan = app('abovesky.subscription.plan')->create([
     'name' => 'Pro',
     'description' => 'Pro plan',
     'price' => 9.99,
-    'signup_fee' => 1.99,
     'invoice_period' => 1,
     'invoice_interval' => 'month',
     'trial_period' => 15,

@@ -10,7 +10,6 @@ use Abovesky\Subscription\Traits\HasSlug;
 use Spatie\EloquentSortable\Sortable;
 use Illuminate\Database\Eloquent\Model;
 use Abovesky\Subscription\Services\Period;
-use Abovesky\Subscription\Traits\HasTranslations;
 use Abovesky\Subscription\Traits\ValidatingTrait;
 use Spatie\EloquentSortable\SortableTrait;
 use Abovesky\Subscription\Traits\BelongsToPlan;
@@ -55,7 +54,6 @@ class PlanFeature extends Model implements Sortable
     use HasSlug;
     use BelongsToPlan;
     use SortableTrait;
-    use HasTranslations;
     use ValidatingTrait;
 
     /**
@@ -91,16 +89,6 @@ class PlanFeature extends Model implements Sortable
     protected $observables = [
         'validating',
         'validated',
-    ];
-
-    /**
-     * The attributes that are translatable.
-     *
-     * @var array
-     */
-    public $translatable = [
-        'name',
-        'description',
     ];
 
     /**
@@ -140,8 +128,8 @@ class PlanFeature extends Model implements Sortable
         $this->setRules([
             'plan_id' => 'required|integer|exists:'.config('abovesky.subscription.tables.plans').',id',
             'slug' => 'required|alpha_dash|max:150|unique:'.config('abovesky.subscription.tables.plan_features').',slug',
-            'name' => 'required|string|max:150',
-            'description' => 'nullable|string|max:32768',
+            'name' => 'required|string|max:50',
+            'description' => 'nullable|string|max:255',
             'value' => 'required|string',
             'resettable_period' => 'sometimes|integer',
             'resettable_interval' => 'sometimes|in:hour,day,week,month',

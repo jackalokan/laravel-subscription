@@ -12,7 +12,6 @@ use Abovesky\Subscription\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 use Abovesky\Subscription\Services\Period;
-use Abovesky\Subscription\Traits\HasTranslations;
 use Abovesky\Subscription\Traits\ValidatingTrait;
 use Abovesky\Subscription\Traits\BelongsToPlan;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -63,7 +62,6 @@ class PlanSubscription extends Model
 {
     use HasSlug;
     use BelongsToPlan;
-    use HasTranslations;
     use ValidatingTrait;
 
     /**
@@ -104,16 +102,6 @@ class PlanSubscription extends Model
     ];
 
     /**
-     * The attributes that are translatable.
-     *
-     * @var array
-     */
-    public $translatable = [
-        'name',
-        'description',
-    ];
-
-    /**
      * The default rules that the model will validate against.
      *
      * @var array
@@ -139,8 +127,8 @@ class PlanSubscription extends Model
 
         $this->setTable(config('abovesky.subscription.tables.plan_subscriptions'));
         $this->setRules([
-            'name' => 'required|string|max:150',
-            'description' => 'nullable|string|max:32768',
+            'name' => 'required|string|max:50',
+            'description' => 'nullable|string|max:255',
             'slug' => 'required|alpha_dash|max:150|unique:'.config('abovesky.subscription.tables.plan_subscriptions').',slug',
             'plan_id' => 'required|integer|exists:'.config('abovesky.subscription.tables.plans').',id',
             'subscriber_id' => 'required|integer',
@@ -272,7 +260,7 @@ class PlanSubscription extends Model
      */
     public function renew()
     {
-        if ($this->ended() && $this->canceled()) {
+        if ($this->ended()) {
             throw new LogicException('Unable to renew canceled ended subscription.');
         }
 
@@ -283,8 +271,7 @@ class PlanSubscription extends Model
             $subscription->usage()->delete();
 
             // Renew period
-            $subscription->setNewPeriod();
-            $subscription->canceled_at = null;
+            $subscription->setNewPeriod('','',$subscription->ends_at);
             $subscription->save();
         });
 
@@ -381,7 +368,10 @@ class PlanSubscription extends Model
 
         $period = new Period($invoice_interval, $invoice_period, $start);
 
-        $this->starts_at = $period->getStartDate();
+        if (!$start) {
+            $this->starts_at = $period->getStartDate();
+        }
+
         $this->ends_at = $period->getEndDate();
 
         return $this;
