@@ -139,12 +139,12 @@ class PlanSubscription extends Model
 
         $this->setTable(config('abovesky.subscription.tables.plan_subscriptions'));
         $this->setRules([
-            'name' => 'required|string|strip_tags|max:150',
+            'name' => 'required|string|max:150',
             'description' => 'nullable|string|max:32768',
             'slug' => 'required|alpha_dash|max:150|unique:'.config('abovesky.subscription.tables.plan_subscriptions').',slug',
             'plan_id' => 'required|integer|exists:'.config('abovesky.subscription.tables.plans').',id',
             'subscriber_id' => 'required|integer',
-            'subscriber_type' => 'required|string|strip_tags|max:150',
+            'subscriber_type' => 'required|string|max:150',
             'trial_ends_at' => 'nullable|date',
             'starts_at' => 'required|date',
             'ends_at' => 'required|date',

@@ -145,7 +145,7 @@ class Plan extends Model implements Sortable
         $this->setTable(config('abovesky.subscription.tables.plans'));
         $this->setRules([
             'slug' => 'required|alpha_dash|max:150|unique:'.config('abovesky.subscription.tables.plans').',slug',
-            'name' => 'required|string|strip_tags|max:150',
+            'name' => 'required|string|max:150',
             'description' => 'nullable|string|max:32768',
             'is_active' => 'sometimes|boolean',
             'price' => 'required|numeric',

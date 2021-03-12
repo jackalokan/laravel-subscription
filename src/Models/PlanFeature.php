@@ -140,7 +140,7 @@ class PlanFeature extends Model implements Sortable
         $this->setRules([
             'plan_id' => 'required|integer|exists:'.config('abovesky.subscription.tables.plans').',id',
             'slug' => 'required|alpha_dash|max:150|unique:'.config('abovesky.subscription.tables.plan_features').',slug',
-            'name' => 'required|string|strip_tags|max:150',
+            'name' => 'required|string|max:150',
             'description' => 'nullable|string|max:32768',
             'value' => 'required|string',
             'resettable_period' => 'sometimes|integer',

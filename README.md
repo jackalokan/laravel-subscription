@@ -18,12 +18,12 @@
 
 2. Publish resources (migrations and config files):
     ```shell
-    php artisan abovesky:publish:subscriptions
+    php artisan abovesky:publish:subscription
     ```
 
 3. Execute migrations via the following command:
     ```shell
-    php artisan abovesky:migrate:subscriptions
+    php artisan abovesky:migrate:subscription
     ```
 
 4. Done!
@@ -220,7 +220,6 @@ Alternatively you can use the following methods available in the subscription mo
 
 ```php
 $user->subscription('main')->active();
-$user->subscription('main')->canceled();
 $user->subscription('main')->ended();
 $user->subscription('main')->onTrial();
 ```
@@ -233,22 +232,6 @@ To renew a subscription you may use the `renew` method available in the subscrip
 
 ```php
 $user->subscription('main')->renew();
-```
-
-_Canceled subscriptions with an ended period can't be renewed._
-
-### Cancel a Subscription
-
-To cancel a subscription, simply use the `cancel` method on the user's subscription:
-
-```php
-$user->subscription('main')->cancel();
-```
-
-By default the subscription will remain active until the end of the period, you may pass `true` to end the subscription _immediately_:
-
-```php
-$user->subscription('main')->cancel(true);
 ```
 
 ### Scopes
